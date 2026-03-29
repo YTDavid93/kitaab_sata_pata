@@ -18,8 +18,7 @@ class User < ApplicationRecord
   def password_strength
     return if password.blank?
 
-    min_length = Devise.password_length.min
-    if password.length < min_length
+    if password.length < PASSWORD_LENGTH
       errors.add(:password, "must be at least 8 characters long")
     end
 
