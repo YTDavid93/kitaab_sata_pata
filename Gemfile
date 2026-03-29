@@ -33,7 +33,7 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
-# gem "rack-cors"
+gem "rack-cors", "~> 3.0"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -48,3 +48,12 @@ group :development, :test do
   # autoload dotenv in Rails
   gem "dotenv-rails", "~> 3.2"
 end
+
+# flexible authentication for rails with warden
+gem "devise", "~> 5.0", ">= 5.0.3"
+
+# JWT authentication for devise with configurable strategies
+gem "devise-jwt", "~> 0.13.0"
+
+# JSON:API serialization library
+gem "jsonapi-serializer", "~> 2.2"
