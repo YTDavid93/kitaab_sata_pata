@@ -1,11 +1,24 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+confirmed_user:
+  name: Confirmed User
+  email: confirmed@example.com
+  encrypted_password: <%= BCrypt::Password.create("Password1!", cost: 1) %>
+  confirmed_at: <%= 1.day.ago %>
+  jti: <%= SecureRandom.uuid %>
+
+unconfirmed_user:
+  name: Unconfirmed User
+  email: unconfirmed@example.com
+  encrypted_password: <%= BCrypt::Password.create("Password1!", cost: 1) %>
+  confirmation_token: valid_confirmation_token_abc123
+  confirmation_sent_at: <%= 1.hour.ago %>
+  jti: <%= SecureRandom.uuid %>
+
+expired_token_user:
+  name: Expired Token User
+  email: expired@example.com
+  encrypted_password: <%= BCrypt::Password.create("Password1!", cost: 1) %>
+  confirmation_token: expired_confirmation_token_xyz789
+  confirmation_sent_at: <%= 4.days.ago %>
+  jti: <%= SecureRandom.uuid %>
