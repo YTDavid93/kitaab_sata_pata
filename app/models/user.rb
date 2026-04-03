@@ -13,6 +13,11 @@ class User < ApplicationRecord
   # validate password strength
   validate :password_strength
 
+  # send email asynchronously using Active Job
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
+
   def confirmation_token_expired?
     return false if confirmation_sent_at.nil?
 
