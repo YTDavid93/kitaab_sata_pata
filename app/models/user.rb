@@ -5,13 +5,20 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-          :jwt_authenticatable, jwt_revocation_strategy: self
+         :confirmable, :jwt_authenticatable, jwt_revocation_strategy: self
 
   validates :name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   # validate password strength
   validate :password_strength
+
+  def confirmation_token_expired?
+    return false if confirmation_sent_at.nil?
+
+    expiration_time = Devise.confirm_within
+    confirmation_sent_at + expiration_time < Time.current
+  end
 
   private
 
