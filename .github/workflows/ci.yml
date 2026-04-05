@@ -75,5 +75,6 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/kitab_sata_pata_test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          MAILER_SENDER: ${{ secrets.MAILER_SENDER }}
           # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test

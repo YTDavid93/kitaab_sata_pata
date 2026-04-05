@@ -47,6 +47,9 @@ group :development, :test do
 
   # autoload dotenv in Rails
   gem "dotenv-rails", "~> 3.2"
+
+  # Gem for previewing emails in development
+  gem "letter_opener", "~> 1.10"
 end
 
 # flexible authentication for rails with warden

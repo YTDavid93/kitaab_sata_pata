@@ -33,5 +33,8 @@ module KitabSataPata
     config.session_store :cookie_store, key: "_kitab_sata_pata_session"
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use config.session_store, config.session_options
+
+    config.active_job.queue_adapter = :solid_queue
+    config.solid_queue.connects_to = { database: { writing: :queue } }
   end
 end
