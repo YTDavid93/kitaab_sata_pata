@@ -1,4 +1,4 @@
-class UsersMailer < ApplicationMailer
+class UserMailer < ApplicationMailer
   def confirmation(user)
     @user = user
     @confirmation_url = "#{ENV['FRONTEND_URL']}/confirm-email?token=#{user.confirmation_token}"
