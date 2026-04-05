@@ -18,13 +18,6 @@ class User < ApplicationRecord
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
-  def confirmation_token_expired?
-    return false if confirmation_sent_at.nil?
-
-    expiration_time = Devise.confirm_within
-    confirmation_sent_at + expiration_time < Time.current
-  end
-
   private
 
   def password_strength
