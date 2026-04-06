@@ -8,7 +8,7 @@ module JsonResponse
       success: true,
       message: message
     }
-    response = response.merge(data: data) if data.present?
+    response = response.merge(data: data) unless data.nil?
     render json: response, status: status_code
   end
 
