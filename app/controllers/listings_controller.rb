@@ -18,7 +18,7 @@ class ListingsController < ApplicationController
   def create
     @listing = current_user.listings.build(listing_params)
     if @listing.save
-      render_json_success("Listing created successfully", status_code: 201)
+      render_json_success("Listing created successfully", listing: @listing, status_code: 201)
     else
       render_json_error("Failed to create listing", 422, @listing.errors.full_messages)
     end
