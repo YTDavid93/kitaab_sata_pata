@@ -44,9 +44,9 @@ class ListingsController < ApplicationController
   end
 
   def set_listing
-    @listing = Listing.find_by(id: params[:id])
+    @listing = current_user.listings.find_by(id: params[:id])
     return if @listing
 
-    render_json_error("Listing not found", 404)
+    render_json_error("Listing not found", 404) and return
   end
 end
