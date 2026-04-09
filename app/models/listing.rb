@@ -16,6 +16,10 @@ class Listing < ApplicationRecord
     message: "You have already requested this book"
   }
 
+  def image_url
+    listing_image.attached? ? Rails.application.routes.url_helpers.url_for(listing_image) : nil
+  end
+
   private
 
   def listing_image_validation
