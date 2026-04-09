@@ -9,12 +9,24 @@ class Listing < ApplicationRecord
   validates :user_id, :title, :book_name, :author_name, :genre, :description, presence: true
   validates :description, length: { maximum: 150 }
 
+  validate :listing_image_validation, if: -> { listing_image.attached? }
+
   validates :id, uniqueness: {
     scope: :user_id,
     message: "You have already requested this book"
   }
 
   private
+
+  def listing_image_validation
+    if listing_image.byte_size > 5.megabytes
+      errors.add(:listing_image, "should be less than 5MB")
+    end
+
+    unless listing_image.content_type.in?(%w[image/png image/jpg image/jpeg ])
+      errors.add(:listing_image, "must be an image (PNG, JPG, JPEG)")
+    end
+  end
 
   def set_default_status
     self.status ||= "active"
