@@ -56,7 +56,7 @@ class RequestsController < ApplicationController
     @request = Request.find_by(id: params[:id])
     return if @request
 
-    render_json_error("Request not found", 404, "No request exists with the provided id")
+    render_json_error("Request not found", 404, "No request exists with the provided id") and return
   end
 
   def authorize_requestee!
