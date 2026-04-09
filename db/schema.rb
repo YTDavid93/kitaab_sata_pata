@@ -32,7 +32,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_06_112653) do
     t.bigint "requestee_id", null: false
     t.bigint "listing_id", null: false
     t.bigint "offered_listing_id", null: false
-    t.string "status"
+    t.string "status", default: "pending", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["listing_id"], name: "index_requests_on_listing_id"

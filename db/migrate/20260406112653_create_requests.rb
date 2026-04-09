@@ -5,7 +5,7 @@ class CreateRequests < ActiveRecord::Migration[8.0]
       t.references :requestee, null: false, foreign_key: { to_table: :users }
       t.references :listing, null: false, foreign_key: { to_table: :listings }
       t.references :offered_listing, null: false, foreign_key: { to_table: :listings }
-      t.string :status
+      t.string :status, null: false, default: "pending"
 
       t.timestamps
     end
