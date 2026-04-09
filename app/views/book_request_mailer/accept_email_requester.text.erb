@@ -1,0 +1,15 @@
+Your Book Swap Request has been Accepted!
+==========================================
+
+Hi <%= @requester.name %>,
+
+Excellent news! <%= @requestee.name %> has accepted your book swap request!
+
+SWAP DETAILS:
+You receive: <%= @listing.title %> by <%= @listing.author_name %>
+You give: <%= @offered_listing.title %> by <%= @offered_listing.author_name %>
+
+Please reach out to <%= @requestee.name %> to coordinate the book exchange. You can arrange pickup or delivery according to what works best for both of you.
+
+Thank you for using Kitab Sata Pata!
+The Kitab Sata Pata Team

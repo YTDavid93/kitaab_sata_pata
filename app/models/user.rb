@@ -7,6 +7,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :jwt_authenticatable, jwt_revocation_strategy: self
   has_many :listings, dependent: :destroy
+  has_many :requester_requests, class_name: "Request",
+                                foreign_key: "requester_id", dependent: :destroy
+  has_many :requestee_requests, class_name: "Request",
+                                foreign_key: "requestee_id", dependent: :destroy
 
   validates :name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }

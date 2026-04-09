@@ -1,0 +1,18 @@
+<h1>Your Book Swap Request has been Accepted!</h1>
+
+<p>Hi <%= @requester.name %>,</p>
+
+<p>Excellent news! <strong><%= @requestee.name %></strong> has accepted your book swap request!</p>
+
+<div style="margin: 20px 0; padding: 15px; background-color: #d4edda; border-left: 4px solid #28a745;">
+  <h3>Swap Details:</h3>
+  <p>
+    <strong>You receive:</strong> <%= @listing.title %> by <%= @listing.author_name %><br/>
+    <strong>You give:</strong> <%= @offered_listing.title %> by <%= @offered_listing.author_name %>
+  </p>
+</div>
+
+<p>Please reach out to <%= @requestee.name %> to coordinate the book exchange. You can arrange pickup or delivery according to what works best for both of you.</p>
+
+<p>Thank you for using Kitab Sata Pata!<br/>
+The Kitab Sata Pata Team</p>

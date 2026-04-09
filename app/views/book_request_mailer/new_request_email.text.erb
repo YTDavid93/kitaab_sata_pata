@@ -1,0 +1,17 @@
+Book Swap Request from <%= @requester.name %>
+=====================================
+
+Hi <%= @requestee.name %>,
+
+<%= @requester.name %> has requested a book swap with you for the following listing:
+
+Book: <%= @listing.title %>
+Author: <%= @listing.author_name %>
+<% if @listing.description %>
+Description: <%= @listing.description %>
+<% end %>
+
+Log in to your account to view the full details and respond to this request.
+
+Best regards,
+The Kitab Sata Pata Team

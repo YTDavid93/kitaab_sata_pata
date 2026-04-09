@@ -1,6 +1,7 @@
 class Listing < ApplicationRecord
   belongs_to :user
   before_create :set_default_status
+  has_many :requests, dependent: :destroy
 
   validates :user_id, :title, :book_name, :author_name, :genre, :description, presence: true
   validates :description, length: { maximum: 150 }
