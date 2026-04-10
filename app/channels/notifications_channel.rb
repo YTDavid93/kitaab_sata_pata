@@ -1,4 +1,4 @@
-class NotificationChannel < ApplicationCable::Channel
+class NotificationsChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
     stream_for current_user if current_user.present?
