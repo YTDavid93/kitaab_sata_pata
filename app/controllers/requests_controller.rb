@@ -20,6 +20,11 @@ class RequestsController < ApplicationController
     if @request.save
       # Send email asynchronously after creating the request
       BookRequestMailer.with(request: @request).new_request_email.deliver_later
+
+      # Create and broadcast notification to the requestee
+      notification = create_notification(@request, "New book request from #{current_user.name}")
+      notification.broadcast_to_user
+
       render_json_success("Request created successfully", request: @request, status_code: 201)
     else
       render_json_error("Failed to create request", 422, @request.errors.full_messages)
@@ -31,6 +36,11 @@ class RequestsController < ApplicationController
       # send email to both requester and requestee, so that they can coordinate the swap
       BookRequestMailer.with(request: @request).accept_email_requestee.deliver_later
       BookRequestMailer.with(request: @request).accept_email_requester.deliver_later
+
+      # initiate notification to requester about acceptance
+      notification = create_notification(@request, "Your book request for #{@request.listing.title} has been accepted by #{@request.requestee.name}")
+      notification.broadcast_to_user
+
       render_json_success("Request accepted successfully", request: @request)
     else
       render_json_error("Failed to accept request", 422, @request.errors.full_messages)
@@ -40,6 +50,11 @@ class RequestsController < ApplicationController
   def decline
     if @request.update(status: "declined")
       BookRequestMailer.with(request: @request).decline_email.deliver_later
+
+      # on decline also send notification to requester about decline
+      notification = create_notification(@request, "Your book request for #{@request.listing.title} has been declined by #{@request.requestee.name}")
+      notification.broadcast_to_user
+
       render_json_success("Request declined successfully", request: @request)
     else
       render_json_error("Failed to decline request", 422, @request.errors.full_messages)
@@ -67,5 +82,13 @@ class RequestsController < ApplicationController
 
   def check_existing_request(listing_id, requestee_id)
     Request.find_by(listing_id: listing_id, requestee_id: requestee_id, requester_id: current_user.id)
+  end
+
+  def create_notification(request, message)
+    Notification.create!(
+      user_id: request.requestee_id,
+      message: message,
+      read: false
+    )
   end
 end
