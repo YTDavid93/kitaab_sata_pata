@@ -5,10 +5,7 @@ class Notification < ApplicationRecord
   scope :read, -> { where(read: true) }
 
   def broadcast_to_user
-    ActionCable.server.broadcast(
-      "notifications_#{user_id}",
-      serialized_notification
-    )
+    ::NotificationsChannel.broadcast_to(user, serialized_notification)
   end
 
   private
